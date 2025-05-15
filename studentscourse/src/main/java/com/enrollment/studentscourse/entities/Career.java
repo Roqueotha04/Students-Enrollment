@@ -1,20 +1,21 @@
 package com.enrollment.studentscourse.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
+@Entity
 @Data
-public class studentCourse {
+public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Long studentId;
+    private String carrerName;
 
     @ManyToOne
-    private Long courseId;
-
-
+    @JoinColumn(name = "field_id")
+    private List <Field> fieldList;
 }

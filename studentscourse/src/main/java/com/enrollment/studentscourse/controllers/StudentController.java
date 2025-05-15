@@ -16,7 +16,7 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping
-    public List<Student> getStudents(){
+    public List<StudentOutputDTO> getStudents(){
        return studentService.getAllStudents();
     }
 

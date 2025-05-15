@@ -7,13 +7,16 @@ import java.util.List;
 
 @Entity
 @Data
-public class Student {
 
+public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    @OneToMany(mappedBy = "student")
+    private String fieldName;
+    @OneToMany(mappedBy = "field")
+    //@JsonIgnoreProperties("courseList")
     private List<Course> courseList;
 
+    @OneToMany (mappedBy = "fieldList")
+    private Career career;
 }

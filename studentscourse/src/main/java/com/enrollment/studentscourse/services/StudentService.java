@@ -1,6 +1,5 @@
 package com.enrollment.studentscourse.services;
 
-import com.enrollment.studentscourse.entities.Course;
 import com.enrollment.studentscourse.entities.Student;
 import com.enrollment.studentscourse.entities.dto.CourseOutputDTO;
 import com.enrollment.studentscourse.entities.dto.StudentOutputDTO;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -17,9 +15,17 @@ public class StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    public List<Student> getAllStudents (){
+    public List<StudentOutputDTO> getAllStudents (){
         List <Student> studentList = (List <Student>) studentRepository.findAll();
-        return studentList;
+
+        return studentList.stream().
+                map(student-> {
+                    List<CourseOutputDTO> courses = student.getCourseList().stream().
+                            map(course -> new CourseOutputDTO(course.getField().getId(), course.getField().getFieldName()))
+                            .toList();
+                    return new StudentOutputDTO(student.getId(), student.getName(), courses);
+                }).toList();
+
       /*  return studentList.stream()
                 .map(student->{
                     List<CourseOutputDTO> courses= student.getCourseList().stream()

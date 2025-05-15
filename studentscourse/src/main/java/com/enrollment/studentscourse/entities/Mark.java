@@ -3,17 +3,17 @@ package com.enrollment.studentscourse.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
-public class Student {
-
+public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    @OneToMany(mappedBy = "student")
-    private List<Course> courseList;
+
+    private int score;
+
+    @ManyToOne
+    @JoinColumn(name = "student_mark")
+    private Course course;
 
 }
